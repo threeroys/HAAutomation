@@ -1,0 +1,5 @@
+APIKEY="yWvqwtbGdpvQVdh39hOqZjChI67IVxEhfjFzi5mI"
+FULLREQUESTURL="https://api.data.gov/docs/nrel/transportation/alt-fuel-stations-v1/"
+HOST="developer.nrel.gov"
+STATION="HYATT AUSTIN"
+EXPECTEDADDRESS="208 Barton Springs Rd"
