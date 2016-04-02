@@ -1,0 +1,1764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20160402 09:03:38.353" generator="Robot 3.0 (Python 2.7.10 on darwin)">
+<suite source="/Users/RobnLes/repos/HAAutomation/tests" id="s1" name="Tests">
+<suite source="/Users/RobnLes/repos/HAAutomation/tests/api" id="s1-s1" name="Api">
+<suite source="/Users/RobnLes/repos/HAAutomation/tests/api/altFuelStations.robot" id="s1-s1-s1" name="altFuelStations">
+<test id="s1-s1-s1-t1" name="Alternate Fuel Station Locations">
+<kw name="Create Http Context" library="HttpLibrary.HTTP">
+<doc>Sets the HTTP host to use for future requests. You must call this</doc>
+<arguments>
+<arg>developer.nrel.gov</arg>
+<arg>https</arg>
+</arguments>
+<msg timestamp="20160402 09:03:38.493" level="INFO">Host for next HTTP request set to 'developer.nrel.gov'</msg>
+<msg timestamp="20160402 09:03:38.493" level="INFO">Scheme for next HTTP request set to 'https'</msg>
+<status status="PASS" endtime="20160402 09:03:38.494" starttime="20160402 09:03:38.493"></status>
+</kw>
+<kw name="GET" library="HttpLibrary.HTTP">
+<doc>Issues a HTTP GET request.</doc>
+<arguments>
+<arg>/api/alt-fuel-stations/v1/nearest.json?api_key=${APIKEY}&amp;location=AUSTIN+TX&amp;ev_network=ChargePoint+Network</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:38.986" starttime="20160402 09:03:38.494"></status>
+</kw>
+<kw name="Get Response Status" library="HttpLibrary.HTTP">
+<doc>Returns the response status line (e.g. "200 OK" or "404 Not found")</doc>
+<assign>
+<var>${RESPONSESTATUS}</var>
+</assign>
+<msg timestamp="20160402 09:03:38.987" level="INFO">${RESPONSESTATUS} = 200 OK</msg>
+<status status="PASS" endtime="20160402 09:03:38.987" starttime="20160402 09:03:38.986"></status>
+</kw>
+<kw name="Should Start With" library="BuiltIn">
+<doc>Fails if the string ``str1`` does not start with the string ``str2``.</doc>
+<arguments>
+<arg>${RESPONSESTATUS}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:38.988" starttime="20160402 09:03:38.987"></status>
+</kw>
+<kw name="Response Body Should Contain" library="HttpLibrary.HTTP">
+<doc>Fails if the response body does not contain `should_contain`</doc>
+<arguments>
+<arg>HYATT AUSTIN</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:38.988" starttime="20160402 09:03:38.988"></status>
+</kw>
+<kw name="Get Response Body" library="HttpLibrary.HTTP">
+<doc>Get the response body.</doc>
+<assign>
+<var>${RESPONSEBODY}</var>
+</assign>
+<msg timestamp="20160402 09:03:38.989" level="INFO">${RESPONSEBODY} = {"latitude":30.267153,"longitude":-97.74306079999999,"precision":{"name":"locality","types":["locality","political"],"value":4},"station_locator_url":"http://www.afdc.energy.gov/afdc/locator/stations/...</msg>
+<status status="PASS" endtime="20160402 09:03:38.989" starttime="20160402 09:03:38.989"></status>
+</kw>
+<kw name="Should Be Valid Json" library="HttpLibrary.HTTP">
+<doc>Attempts to parse `json_string` as JSON. Fails, if `json_string` is invalid JSON.</doc>
+<arguments>
+<arg>${RESPONSEBODY}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:38.991" starttime="20160402 09:03:38.990"></status>
+</kw>
+<kw name="Log Json" library="HttpLibrary.HTTP">
+<doc>Logs a pretty printed version of the JSON document `json_string`.</doc>
+<arguments>
+<arg>${RESPONSEBODY}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:38.996" level="INFO">{</msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">  "total_results": 81, </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">  "fuel_stations": [</msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "updated_at": "2016-04-02T07:58:29Z", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "id": 65580, </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "latitude": 30.2651989, </msg>
+<msg timestamp="20160402 09:03:38.996" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "intersection_directions": "WHITLEY MAIN; 3rd floor parking garage", </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "station_name": "WHITLEY MAIN", </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "longitude": -97.7421936, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">          "1:115481"</msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:38.997" level="INFO">      "street_address": "301 Brazos St", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "distance": 0.14425</msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "updated_at": "2016-04-02T08:00:36Z", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "id": 66676, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "latitude": 30.2645717, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:38.998" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "intersection_directions": "EV STATION; Located on Level P1 of the parking garage", </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "station_name": "P1", </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "longitude": -97.7434046, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">          "1:113401"</msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:38.999" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      "street_address": "110 East 2nd Street", </msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      "distance": 0.17899</msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      "updated_at": "2016-04-02T08:37:46Z", </msg>
+<msg timestamp="20160402 09:03:39.000" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "id": 40370, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "geocode_status": "200-9", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "latitude": 30.2635342, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "ev_level2_evse_num": 3, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "intersection_directions": "CONVENTION CTR3; 1st Floor garage between Elevator and Handicap parking\nCONVENTION CTR2; 1st Floor garage between Elevator and Handicap parking\nCONVENTION CTR1; 1st Floor garage between Elevator and Handicap parking", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "station_name": "COA FACILITIES", </msg>
+<msg timestamp="20160402 09:03:39.001" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "longitude": -97.7424504, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "ev_level1_evse_num": 3, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">          "1:3443", </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">          "1:4316", </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">          "1:5284"</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "street_address": "201 E 2nd St", </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "distance": 0.25193</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.002" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "updated_at": "2016-04-02T08:37:36Z", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "id": 41272, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "geocode_status": "200-8", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "latitude": 30.268804, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "intersection_directions": "PUB-STDAVIDSST2; By main entrance, parking garage on Trinity St\nPUB-STDAVIDSST1; By main entrance,  parking garage on Trinity St", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "station_name": "PLUGNEVERYWHERE", </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.003" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "longitude": -97.7391449, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "ev_level1_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">          "1:3826", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">          "1:5362"</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "street_address": "710 Trinity St", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "distance": 0.2603</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "updated_at": "2016-04-02T08:38:30Z", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "id": 38993, </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "geocode_status": "200-8", </msg>
+<msg timestamp="20160402 09:03:39.004" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "latitude": 30.2648963, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "intersection_directions": "CITY HALL STAT2; Level P2 parking garage.North side of building.Wall on left \nCITY HALL STAT1; Level P2 parking garage.North side of building.Wall on left ", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "station_name": "COA FACILITIES", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "longitude": -97.747196, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ev_level1_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">          "1:3626", </msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">          "1:4990"</msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.005" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "street_address": "301 W 2nd St", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "distance": 0.29206</msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "updated_at": "2016-04-02T08:32:42Z", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "id": 68765, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "latitude": 30.2659988, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.006" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "ev_level2_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "intersection_directions": "PUBAMLI1; Second level near cashier", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "station_name": "PLUGNEVERYWHERE", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "longitude": -97.7483754, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "ev_level1_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">          "1:8208"</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "street_address": "263-299 San Antonio St", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "distance": 0.32757</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.007" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "updated_at": "2016-04-02T07:57:01Z", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "id": 68035, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "geocode_status": "200-9", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "latitude": 30.2705061, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "ev_level2_evse_num": 5, </msg>
+<msg timestamp="20160402 09:03:39.008" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "intersection_directions": "PARKING 2-3; The station is located on the second floor of the parking garage. It is restricted to drivers with garage access.\nPARKING 4-5; The station is located on the second floor of the parking garage. It is restricted to drivers with garage access.\nHANDICAP; The station is located on the second floor of the parking garage. It is restricted to drivers with garage access.", </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "station_name": "MONOGRAM", </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "longitude": -97.7489066, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">          "1:106433", </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">          "1:107285", </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">          "1:117269"</msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.009" level="INFO">      "street_address": "615 W 7th St", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "distance": 0.41895</msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "updated_at": "2016-04-02T08:11:23Z", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "id": 62029, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "zip": "78704", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "latitude": 30.2604763, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.010" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "intersection_directions": "PARKING GARAGE", </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "station_name": "HYATT AUSTIN", </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "longitude": -97.7467678, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">          "1:96465"</msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.011" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "street_address": "208 Barton Springs Rd", </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "distance": 0.51054</msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "updated_at": "2016-04-02T07:49:17Z", </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "id": 69822, </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.012" level="INFO">      "zip": "78704", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "geocode_status": "200-9", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "latitude": 30.2592081, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ev_level2_evse_num": 4, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "intersection_directions": "CATHERINE 1; 3rd Flr Parking Garage\nCATHERINE 2; -", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "station_name": "CATHERINE", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "longitude": -97.7476868, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:39.013" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">          "1:124467", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">          "1:122491"</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "street_address": "300 Barton Springs Rd", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "distance": 0.6132</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "updated_at": "2016-04-02T08:38:35Z", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "id": 71191, </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "geocode_status": "200-8", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.014" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "latitude": 30.258348, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "intersection_directions": "MACC STATION 2; -\nMACC STATION 1; -", </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "station_name": "COA FACILITIES", </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "longitude": -97.7392239, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ev_level1_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">          "1:2825", </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">          "1:4975"</msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.015" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "street_address": "68 Rainey St", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "distance": 0.64846</msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "updated_at": "2016-04-02T07:50:16Z", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "id": 73958, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "zip": "78703", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "latitude": 30.2667933, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.016" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "intersection_directions": "SEAHOLML2", </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "station_name": "PLUGNEVERYWHERE", </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "longitude": -97.7540311, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">          "1:123121"</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "street_address": "811 1/2 W 2nd St", </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "distance": 0.65641</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.017" level="INFO">      "updated_at": "2016-04-02T07:49:05Z", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "id": 73681, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ev_dc_fast_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "latitude": 30.2668137, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ev_level2_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "intersection_directions": "SEAHOLMDC", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "station_name": "PLUGNEVERYWHERE", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "longitude": -97.754094, </msg>
+<msg timestamp="20160402 09:03:39.018" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">          "1:124767"</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">        "CHADEMO"</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "street_address": "811 1/2 W 2nd St", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "distance": 0.66012</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "updated_at": "2016-04-02T08:21:46Z", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "id": 53468, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "zip": "78702", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "geocode_status": "200-9", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.019" level="INFO">      "latitude": 30.2695339, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ev_level2_evse_num": 4, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "intersection_directions": "CJUF STAT 2; -\nCJUF STAT 1; Located at Eleven", </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "station_name": "ELEVEN", </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "longitude": -97.7320979, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ev_level1_evse_num": null, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">          "1:11343", </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">          "1:58123"</msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.020" level="INFO">      "street_address": "811 E 11th St", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "distance": 0.6757</msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "updated_at": "2016-04-02T08:43:18Z", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "id": 36375, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "zip": "78703", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "latitude": 30.2711792, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "ev_level2_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.021" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "intersection_directions": "525 N LAMAR ST1; Located at Whole Foods by N. Lamar and 6th", </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "station_name": "WHOLE FOODS MKT", </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "longitude": -97.7537842, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "ev_level1_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">          "1:1132"</msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.022" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "street_address": "525 N Lamar Blvd", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "distance": 0.69858</msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "updated_at": "2016-04-02T08:42:14Z", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "id": 41768, </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "zip": "78703", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.023" level="INFO">      "latitude": 30.2677364, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ev_level2_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "intersection_directions": "PUBGABLESPARK 2; Gables Parking Garage, by retail/leasing office ", </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "station_name": "PLUGNEVERYWHERE", </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "longitude": -97.7549286, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ev_level1_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.024" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">          "1:2853"</msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "street_address": "115 Sandra Muraida Way", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "distance": 0.71074</msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "updated_at": "2016-04-02T08:35:10Z", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "id": 43767, </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.025" level="INFO">      "geocode_status": "200-8", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "latitude": 30.276762, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ev_level2_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "intersection_directions": "PUBACCRIOGRAND1\nPUBACCRIOGRAND2; west", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "station_name": "PLUGNEVERYWHERE", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "longitude": -97.7476049, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ev_level1_evse_num": 2, </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">          "1:5069", </msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">          "1:6790"</msg>
+<msg timestamp="20160402 09:03:39.026" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "street_address": "1212 Rio Grande St", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "distance": 0.71549</msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "updated_at": "2016-04-02T08:32:40Z", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "id": 56650, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "zip": "78701", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "latitude": 30.2676868, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.027" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "ev_level2_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "intersection_directions": "PUBGABLESPARK 1; Gables Parking Garage, by retail/leasing office ", </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "station_name": "PLUGNEVERYWHERE", </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "longitude": -97.7550507, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "ev_level1_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">          "1:8214"</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "street_address": "115 Sandra Muraida Way", </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "distance": 0.71785</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.028" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "updated_at": "2016-04-02T08:38:32Z", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "id": 38997, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "zip": "78704", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "geocode_status": "200-9", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "latitude": 30.2606481, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "ev_level2_evse_num": 5, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "intersection_directions": "PALMER STATION3; Level 1 parking, close to stairs/elevator\nPALMER STATION2; Level 1 parking, close to stairs/elevator\nPALMER STATION1; Level 1 parking, close to stairs/elevator\nPALMER STATION8; 3rd Floor\nPALMER STATION9; 3rd Floor", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "station_name": "COA FACILITIES", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.029" level="INFO">      "longitude": -97.7529016, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "ev_level1_evse_num": 5, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">          "1:2720", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">          "1:2753", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">          "1:4986", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">          "1:7988", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">          "1:7997"</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "street_address": "900 Barton Springs Rd", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "distance": 0.73961</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "updated_at": "2016-04-02T08:29:41Z", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "id": 50406, </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "zip": "78702", </msg>
+<msg timestamp="20160402 09:03:39.030" level="INFO">      "geocode_status": "GPS", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "latitude": 30.270014, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ev_level2_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "intersection_directions": "912 E11TH STAT1", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "station_name": "NEIGHBORHOOD HO", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "longitude": -97.730825, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ev_level1_evse_num": 1, </msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">          "1:9772"</msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.031" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "street_address": "912 E 11th St", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "distance": 0.75768</msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">    {</msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "access_days_time": "24 hours daily", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "status_code": "E", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "updated_at": "2016-04-02T08:38:30Z", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "e85_blender_pump": null, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "hy_status_link": null, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "id": 40372, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "city": "Austin", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "zip": "78704", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "geocode_status": "200-9", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "state": "TX", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "ev_network_web": "http://www.mychargepoint.net/", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "cards_accepted": null, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "date_last_confirmed": "2016-04-02", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "ev_dc_fast_num": null, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "latitude": 30.2574364, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "open_date": null, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "ng_psi": null, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "ev_other_evse": null, </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "groups_with_access_code": "Public", </msg>
+<msg timestamp="20160402 09:03:39.032" level="INFO">      "fuel_type_code": "ELEC", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "ev_level2_evse_num": 3, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "lpg_primary": null, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "bd_blends": null, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "ng_fill_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "intersection_directions": "OTC 3FL PKGSTA3; 3rd floor parking garage, west of elevator\nOTC 3FL PKGSTA2; 3rd floor parking garage, west of elevator\nOTC 3FL PKGSTA1; 3rd floor parking garage, west of elevator", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "station_name": "COA FACILITIES", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "plus4": null, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "expected_date": null, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "owner_type_code": null, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "ev_network": "ChargePoint Network", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "longitude": -97.7492606, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "ng_vehicle_class": null, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "ev_level1_evse_num": 3, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "ev_network_ids": {</msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">        "posts": [</msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">          "1:2844", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">          "1:2862", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">          "1:4993"</msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">        ]</msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "ev_connector_types": [</msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">        "NEMA520", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">        "J1772"</msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      ], </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "station_phone": "888-758-4389", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "street_address": "505 Barton Springs Rd", </msg>
+<msg timestamp="20160402 09:03:39.033" level="INFO">      "distance": 0.76512</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">    }</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  ], </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  "station_locator_url": "http://www.afdc.energy.gov/afdc/locator/stations/", </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  "precision": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">    "value": 4, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">    "name": "locality", </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">    "types": [</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      "locality", </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      "political"</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">    ]</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  }, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  "longitude": -97.7430608, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  "offset": 0, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  "latitude": 30.267153, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">  "station_counts": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">    "fuels": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      "BD": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">        "total": 0</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      "HY": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">        "total": 0</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      "ELEC": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">        "total": 246, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">        "stations": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">          "total": 81</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">        }</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">      "CNG": {</msg>
+<msg timestamp="20160402 09:03:39.034" level="INFO">        "total": 0</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">      "E85": {</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">        "total": 0</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">      "LPG": {</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">        "total": 0</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">      }, </msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">      "LNG": {</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">        "total": 0</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">      }</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">    }, </msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">    "total": 246</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">  }</msg>
+<msg timestamp="20160402 09:03:39.035" level="INFO">}</msg>
+<status status="PASS" endtime="20160402 09:03:39.035" starttime="20160402 09:03:38.991"></status>
+</kw>
+<kw name="Get Id For Station" library="ApiLibrary">
+<doc>Loops through the given JSON to retrieve the id for the given station name</doc>
+<arguments>
+<arg>${RESPONSEBODY}</arg>
+<arg>${STATION}</arg>
+</arguments>
+<assign>
+<var>${STATIONID}</var>
+</assign>
+<msg timestamp="20160402 09:03:39.036" level="INFO">62029</msg>
+<msg timestamp="20160402 09:03:39.037" level="INFO">${STATIONID} = 62029</msg>
+<status status="PASS" endtime="20160402 09:03:39.037" starttime="20160402 09:03:39.035"></status>
+</kw>
+<kw name="Get Station Address" library="ApiLibrary">
+<doc>Loops through the given JSON to retrieve the address for the given id</doc>
+<arguments>
+<arg>${RESPONSEBODY}</arg>
+<arg>${STATIONID}</arg>
+</arguments>
+<assign>
+<var>${ADDRESS}</var>
+</assign>
+<msg timestamp="20160402 09:03:39.038" level="INFO">208 Barton Springs Rd</msg>
+<msg timestamp="20160402 09:03:39.038" level="INFO">${ADDRESS} = 208 Barton Springs Rd</msg>
+<status status="PASS" endtime="20160402 09:03:39.038" starttime="20160402 09:03:39.037"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${ADDRESS}</arg>
+<arg>${EXPECTEDADDRESS}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:39.038" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'str'&gt;</msg>
+<status status="PASS" endtime="20160402 09:03:39.038" starttime="20160402 09:03:39.038"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:39.039" critical="yes" starttime="20160402 09:03:38.492"></status>
+</test>
+<status status="PASS" endtime="20160402 09:03:39.039" starttime="20160402 09:03:38.387"></status>
+</suite>
+<status status="PASS" endtime="20160402 09:03:39.040" starttime="20160402 09:03:38.384"></status>
+</suite>
+<suite source="/Users/RobnLes/repos/HAAutomation/tests/ui" id="s1-s2" name="Ui">
+<suite source="/Users/RobnLes/repos/HAAutomation/tests/ui/emptyShoppingCart.robot" id="s1-s2-s1" name="emptyShoppingCart">
+<test id="s1-s2-s1-t1" name="Verify Empty Shopping Cart">
+<kw name="Open Browser to Home Page" library="homePage">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>http://store.demoqa.com/</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20160402 09:03:39.159" level="INFO">Opening browser 'chrome' to base url 'http://store.demoqa.com/'</msg>
+<status status="PASS" endtime="20160402 09:03:43.315" starttime="20160402 09:03:39.159"></status>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20160402 09:03:43.746" starttime="20160402 09:03:43.315"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${HOMEMENU}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:43.777" starttime="20160402 09:03:43.746"></status>
+</kw>
+<kw name="Title Should Be" library="Selenium2Library">
+<doc>Verifies that current page title equals `title`.</doc>
+<arguments>
+<arg>ONLINE STORE | Toolsqa Dummy Test site</arg>
+</arguments>
+<msg timestamp="20160402 09:03:43.782" level="INFO">Page title is 'ONLINE STORE | Toolsqa Dummy Test site'.</msg>
+<status status="PASS" endtime="20160402 09:03:43.782" starttime="20160402 09:03:43.778"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:43.782" starttime="20160402 09:03:39.159"></status>
+</kw>
+<kw name="Search Products" library="homePage">
+<arguments>
+<arg>iphone 4s 16 black</arg>
+</arguments>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${HOMESEARCHBOX}</arg>
+<arg>${PRODUCTSEARCH}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:43.783" level="INFO">Typing text 'iphone 4s 16 black' into text field 'xpath=//*[@value='Search Products']'</msg>
+<status status="PASS" endtime="20160402 09:03:43.909" starttime="20160402 09:03:43.783"></status>
+</kw>
+<kw name="Press Key" library="Selenium2Library">
+<doc>Simulates user pressing key on element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${HOMESEARCHBOX}</arg>
+<arg>\\13</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:46.566" starttime="20160402 09:03:43.910"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:46.566" starttime="20160402 09:03:43.783"></status>
+</kw>
+<kw name="Select Product" library="productPage">
+<arguments>
+<arg>Apple iPhone 4S 16GB SIM-Free – Black</arg>
+</arguments>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@class='prodtitle']//*[@title='${PRODUCTTITLE}']</arg>
+</arguments>
+<msg timestamp="20160402 09:03:46.569" level="INFO">Clicking element 'xpath=//*[@class='prodtitle']//*[@title='Apple iPhone 4S 16GB SIM-Free – Black']'.</msg>
+<status status="PASS" endtime="20160402 09:03:50.539" starttime="20160402 09:03:46.568"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${ADDTOCART}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:50.570" starttime="20160402 09:03:50.539"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:50.570" starttime="20160402 09:03:46.567"></status>
+</kw>
+<kw name="Add Product to Cart from Product Page" library="productPage">
+<kw name="Click Button" library="Selenium2Library">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ADDTOCART}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:50.571" level="INFO">Clicking button 'xpath=//*[@value='Add To Cart']'.</msg>
+<status status="PASS" endtime="20160402 09:03:50.639" starttime="20160402 09:03:50.571"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${GOTOCHECKOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:53.444" starttime="20160402 09:03:50.640"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:53.444" starttime="20160402 09:03:50.571"></status>
+</kw>
+<kw name="Prooceed to Checkout" library="productPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${GOTOCHECKOUT}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:53.445" level="INFO">Clicking element 'xpath=//*[@id='fancy_notification_content']//*[@class='go_to_checkout']'.</msg>
+<status status="PASS" endtime="20160402 09:03:55.733" starttime="20160402 09:03:53.445"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${CHECKOUTCARTTABLE}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:03:55.773" starttime="20160402 09:03:55.733"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:55.773" starttime="20160402 09:03:53.445"></status>
+</kw>
+<kw name="Remove Final Item From Cart" library="checkoutPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${REMOVEITEMBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:55.775" level="INFO">Clicking element 'xpath=//*[@value='Remove']'.</msg>
+<status status="PASS" endtime="20160402 09:03:58.797" starttime="20160402 09:03:55.774"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:58.797" starttime="20160402 09:03:55.774"></status>
+</kw>
+<kw name="Verify Empty Cart" library="checkoutPage">
+<kw name="Element Should Not Be Visible" library="Selenium2Library">
+<doc>Verifies that the element identified by `locator` is NOT visible.</doc>
+<arguments>
+<arg>xpath=${REMOVEITEMBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:58.798" level="INFO">Verifying element 'xpath=//*[@value='Remove']' is not visible.</msg>
+<status status="PASS" endtime="20160402 09:03:58.817" starttime="20160402 09:03:58.798"></status>
+</kw>
+<kw name="Element Text Should Be" library="Selenium2Library">
+<doc>Verifies element identified by `locator` exactly contains text `expected`.</doc>
+<arguments>
+<arg>xpath=${CHECKOUTBOX}</arg>
+<arg>${EMPTYCARTMESSAGE}</arg>
+</arguments>
+<msg timestamp="20160402 09:03:58.818" level="INFO">Verifying element 'xpath=//*[@class='entry-content']' contains exactly text 'Oops, there is nothing in your cart.'.</msg>
+<status status="PASS" endtime="20160402 09:03:58.857" starttime="20160402 09:03:58.817"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:58.857" starttime="20160402 09:03:58.797"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20160402 09:03:58.938" starttime="20160402 09:03:58.858"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:03:58.938" critical="yes" starttime="20160402 09:03:39.158"></status>
+</test>
+<doc>Verify removing all items from your cart produces an empty cart message.</doc>
+<status status="PASS" endtime="20160402 09:03:58.940" starttime="20160402 09:03:39.042"></status>
+</suite>
+<suite source="/Users/RobnLes/repos/HAAutomation/tests/ui/placeOrder.robot" id="s1-s2-s2" name="placeOrder">
+<test id="s1-s2-s2-t1" name="Order an iPhone 4s">
+<kw name="Open Browser to Home Page" library="homePage">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>http://store.demoqa.com/</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20160402 09:03:58.956" level="INFO">Opening browser 'chrome' to base url 'http://store.demoqa.com/'</msg>
+<status status="PASS" endtime="20160402 09:04:03.971" starttime="20160402 09:03:58.955"></status>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20160402 09:04:04.292" starttime="20160402 09:04:03.971"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${HOMEMENU}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:04.321" starttime="20160402 09:04:04.292"></status>
+</kw>
+<kw name="Title Should Be" library="Selenium2Library">
+<doc>Verifies that current page title equals `title`.</doc>
+<arguments>
+<arg>ONLINE STORE | Toolsqa Dummy Test site</arg>
+</arguments>
+<msg timestamp="20160402 09:04:04.326" level="INFO">Page title is 'ONLINE STORE | Toolsqa Dummy Test site'.</msg>
+<status status="PASS" endtime="20160402 09:04:04.326" starttime="20160402 09:04:04.321"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:04.326" starttime="20160402 09:03:58.955"></status>
+</kw>
+<kw name="Search Products" library="homePage">
+<arguments>
+<arg>iphone 4s 16 black</arg>
+</arguments>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${HOMESEARCHBOX}</arg>
+<arg>${PRODUCTSEARCH}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:04.328" level="INFO">Typing text 'iphone 4s 16 black' into text field 'xpath=//*[@value='Search Products']'</msg>
+<status status="PASS" endtime="20160402 09:04:04.442" starttime="20160402 09:04:04.327"></status>
+</kw>
+<kw name="Press Key" library="Selenium2Library">
+<doc>Simulates user pressing key on element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${HOMESEARCHBOX}</arg>
+<arg>\\13</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:07.076" starttime="20160402 09:04:04.442"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:07.076" starttime="20160402 09:04:04.327"></status>
+</kw>
+<kw name="Select Product" library="productPage">
+<arguments>
+<arg>Apple iPhone 4S 16GB SIM-Free – Black</arg>
+</arguments>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@class='prodtitle']//*[@title='${PRODUCTTITLE}']</arg>
+</arguments>
+<msg timestamp="20160402 09:04:07.078" level="INFO">Clicking element 'xpath=//*[@class='prodtitle']//*[@title='Apple iPhone 4S 16GB SIM-Free – Black']'.</msg>
+<status status="PASS" endtime="20160402 09:04:10.494" starttime="20160402 09:04:07.077"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${ADDTOCART}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:10.525" starttime="20160402 09:04:10.494"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:10.526" starttime="20160402 09:04:07.076"></status>
+</kw>
+<kw name="Add Product to Cart from Product Page" library="productPage">
+<kw name="Click Button" library="Selenium2Library">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ADDTOCART}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:10.527" level="INFO">Clicking button 'xpath=//*[@value='Add To Cart']'.</msg>
+<status status="PASS" endtime="20160402 09:04:10.595" starttime="20160402 09:04:10.526"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${GOTOCHECKOUT}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:12.541" starttime="20160402 09:04:10.595"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:12.542" starttime="20160402 09:04:10.526"></status>
+</kw>
+<kw name="Prooceed to Checkout" library="productPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${GOTOCHECKOUT}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:12.542" level="INFO">Clicking element 'xpath=//*[@id='fancy_notification_content']//*[@class='go_to_checkout']'.</msg>
+<status status="PASS" endtime="20160402 09:04:14.844" starttime="20160402 09:04:12.542"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${CHECKOUTCARTTABLE}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:14.890" starttime="20160402 09:04:14.844"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:14.890" starttime="20160402 09:04:12.542"></status>
+</kw>
+<kw name="Continue Checkout" library="checkoutPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${CARTCONTINUEBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:14.891" level="INFO">Clicking element 'xpath=//*[@class='step2']'.</msg>
+<status status="PASS" endtime="20160402 09:04:14.958" starttime="20160402 09:04:14.890"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${CHANGECOUNTRY}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:15.481" starttime="20160402 09:04:14.958"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:15.482" starttime="20160402 09:04:14.890"></status>
+</kw>
+<kw name="Complete Checkout Form" library="checkoutPage">
+<arguments>
+<arg>${FIRST}</arg>
+<arg>${LAST}</arg>
+<arg>${ADDRESS}</arg>
+<arg>${CITY}</arg>
+<arg>${STATE}</arg>
+<arg>${COUNTRY}</arg>
+<arg>${ZIP}</arg>
+<arg>${PHONE}</arg>
+</arguments>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${SHIPPINGCOUNTRY}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:15.485" level="INFO">Clicking element 'xpath=//*[@id='current_country']'.</msg>
+<status status="PASS" endtime="20160402 09:04:15.612" starttime="20160402 09:04:15.484"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${SHIPPINGCOUNTRYSELECTION}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:15.614" level="INFO">Clicking element 'xpath=//*[@id='current_country']//*[text()='USA']'.</msg>
+<status status="PASS" endtime="20160402 09:04:16.190" starttime="20160402 09:04:15.613"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${CALCULATEBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:16.191" level="INFO">Clicking element 'xpath=//*[@value='Calculate']'.</msg>
+<status status="PASS" endtime="20160402 09:04:19.858" starttime="20160402 09:04:16.191"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${TOTALFIELD}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:19.896" starttime="20160402 09:04:19.858"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${FIRSTNAMEFIELD}</arg>
+<arg>${FIRST}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:19.897" level="INFO">Typing text 'ROBERT' into text field 'xpath=//*[@title='billingfirstname']'</msg>
+<status status="PASS" endtime="20160402 09:04:20.020" starttime="20160402 09:04:19.897"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${LASTNAMEFIELD}</arg>
+<arg>${LAST}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.021" level="INFO">Typing text 'AGUIRRE' into text field 'xpath=//*[@title='billinglastname']'</msg>
+<status status="PASS" endtime="20160402 09:04:20.132" starttime="20160402 09:04:20.021"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ADDRESSFIELD}</arg>
+<arg>${ADDRESS}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.133" level="INFO">Typing text '101 LANE' into text field 'xpath=//*[@title='billingaddress']'</msg>
+<status status="PASS" endtime="20160402 09:04:20.235" starttime="20160402 09:04:20.132"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${CITYFIELD}</arg>
+<arg>${CITY}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.236" level="INFO">Typing text 'AUSTIN' into text field 'xpath=//*[@title='billingcity']'</msg>
+<status status="PASS" endtime="20160402 09:04:20.341" starttime="20160402 09:04:20.235"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${STATEFIELD}</arg>
+<arg>${STATE}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.342" level="INFO">Typing text 'TX' into text field 'xpath=//*[@title='billingstate']'</msg>
+<status status="PASS" endtime="20160402 09:04:20.439" starttime="20160402 09:04:20.342"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ZIPFIELD}</arg>
+<arg>${ZIP}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.439" level="INFO">Typing text '78715' into text field 'xpath=//*[@title='billingpostcode']'</msg>
+<status status="PASS" endtime="20160402 09:04:20.522" starttime="20160402 09:04:20.439"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${PHONEFIELD}</arg>
+<arg>${PHONE}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.522" level="INFO">Typing text '1111111111' into text field 'xpath=//*[@title='billingphone']'</msg>
+<status status="PASS" endtime="20160402 09:04:20.621" starttime="20160402 09:04:20.522"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:20.622" starttime="20160402 09:04:15.482"></status>
+</kw>
+<kw name="Set Shipping Same as Billing Address" library="checkoutPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${SHIPPINGCHECKBOX}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.622" level="INFO">Clicking element 'xpath=//*[@id='shippingSameBilling']'.</msg>
+<status status="PASS" endtime="20160402 09:04:20.698" starttime="20160402 09:04:20.622"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:20.698" starttime="20160402 09:04:20.622"></status>
+</kw>
+<kw name="Verify Total Amount" library="checkoutPage">
+<arguments>
+<arg>${EXPECTEDTOTAL}</arg>
+</arguments>
+<kw name="Element Text Should Be" library="Selenium2Library">
+<doc>Verifies element identified by `locator` exactly contains text `expected`.</doc>
+<arguments>
+<arg>xpath=${TOTALFIELD}</arg>
+<arg>${EXPECTEDTOTAL}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.700" level="INFO">Verifying element 'xpath=//*[@id='checkout_total']' contains exactly text '$282.00'.</msg>
+<status status="PASS" endtime="20160402 09:04:20.744" starttime="20160402 09:04:20.699"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:20.744" starttime="20160402 09:04:20.699"></status>
+</kw>
+<kw name="Complete Purchase" library="checkoutPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${PURCHASEBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:20.745" level="INFO">Clicking element 'xpath=//*[@value='Purchase']'.</msg>
+<status status="PASS" endtime="20160402 09:04:26.896" starttime="20160402 09:04:20.745"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:26.896" starttime="20160402 09:04:20.744"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20160402 09:04:26.970" starttime="20160402 09:04:26.897"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:26.970" critical="yes" starttime="20160402 09:03:58.954"></status>
+</test>
+<doc>Submit an order for an Apple iPhone4s 16GB SIM-Free – Black (known issue with State drop-down, selecting Country is adequate) and verify the Total Price: given is correct (assume shipping cost is correct based on your choice). You may assume prices shown on product pages are the correct price.</doc>
+<status status="PASS" endtime="20160402 09:04:26.971" starttime="20160402 09:03:58.944"></status>
+</suite>
+<suite source="/Users/RobnLes/repos/HAAutomation/tests/ui/updateAccount.robot" id="s1-s2-s3" name="updateAccount">
+<test id="s1-s2-s3-t1" name="Update Account Information">
+<kw name="Open Browser to Login Page and Login" library="accountLoginPage">
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>http://store.demoqa.com/products-page/your-account/</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20160402 09:04:26.985" level="INFO">Opening browser 'chrome' to base url 'http://store.demoqa.com/products-page/your-account/'</msg>
+<status status="PASS" endtime="20160402 09:04:31.392" starttime="20160402 09:04:26.984"></status>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20160402 09:04:31.668" starttime="20160402 09:04:31.393"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${ACCOUNTUSERNAME}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:31.698" starttime="20160402 09:04:31.669"></status>
+</kw>
+<kw name="Title Should Be" library="Selenium2Library">
+<doc>Verifies that current page title equals `title`.</doc>
+<arguments>
+<arg>Your Account | ONLINE STORE</arg>
+</arguments>
+<msg timestamp="20160402 09:04:31.703" level="INFO">Page title is 'Your Account | ONLINE STORE'.</msg>
+<status status="PASS" endtime="20160402 09:04:31.703" starttime="20160402 09:04:31.698"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ACCOUNTUSERNAME}</arg>
+<arg>${USERNAME}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:31.703" level="INFO">Typing text 'Aguirre' into text field 'xpath=//*[@id='log']'</msg>
+<status status="PASS" endtime="20160402 09:04:31.800" starttime="20160402 09:04:31.703"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ACCOUNTPASSWORD}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:31.800" level="INFO">Typing text 'Lvb3AC9ugcL5v7OA' into text field 'xpath=//*[@id='pwd']'</msg>
+<status status="PASS" endtime="20160402 09:04:31.896" starttime="20160402 09:04:31.800"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${LOGINBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:31.897" level="INFO">Clicking element 'xpath=//*[@id='login']'.</msg>
+<status status="PASS" endtime="20160402 09:04:31.955" starttime="20160402 09:04:31.896"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${YOURDETAILS}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:36.027" starttime="20160402 09:04:31.955"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:36.027" starttime="20160402 09:04:26.984"></status>
+</kw>
+<kw name="Open Account Details" library="accountLoginPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${YOURDETAILS}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:36.028" level="INFO">Clicking element 'xpath=//*[@class='user-profile-links']//*[text()='Your Details']'.</msg>
+<status status="PASS" endtime="20160402 09:04:38.128" starttime="20160402 09:04:36.028"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:38.128" starttime="20160402 09:04:36.027"></status>
+</kw>
+<kw name="Update User Address and Save" library="accountDetailsPage">
+<arguments>
+<arg>${NEWADDRESS}</arg>
+</arguments>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ADDRESSFIELD}</arg>
+<arg>${NEWADDRESS}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:38.130" level="INFO">Typing text '202 Lane' into text field 'xpath=//*[@title='billingaddress']'</msg>
+<status status="PASS" endtime="20160402 09:04:38.239" starttime="20160402 09:04:38.129"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${SAVEPROFILEBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:38.239" level="INFO">Clicking element 'xpath=//*[@value='Save Profile']'.</msg>
+<status status="PASS" endtime="20160402 09:04:40.857" starttime="20160402 09:04:38.239"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:40.857" starttime="20160402 09:04:38.128"></status>
+</kw>
+<kw name="Logout" library="accountLoginPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${LOGOUTLINK}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:40.859" level="INFO">Clicking element 'xpath=//*[@id='account_logout']'.</msg>
+<status status="PASS" endtime="20160402 09:04:40.928" starttime="20160402 09:04:40.858"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:40.928" starttime="20160402 09:04:40.858"></status>
+</kw>
+<kw name="Login" library="accountLoginPage">
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${ACCOUNTUSERNAME}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:44.919" starttime="20160402 09:04:40.929"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ACCOUNTUSERNAME}</arg>
+<arg>${USERNAME}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:44.919" level="INFO">Typing text 'Aguirre' into text field 'xpath=//*[@id='log']'</msg>
+<status status="PASS" endtime="20160402 09:04:44.989" starttime="20160402 09:04:44.919"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${ACCOUNTPASSWORD}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:44.989" level="INFO">Typing text 'Lvb3AC9ugcL5v7OA' into text field 'xpath=//*[@id='pwd']'</msg>
+<status status="PASS" endtime="20160402 09:04:45.085" starttime="20160402 09:04:44.989"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${LOGINBUTTON}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:45.086" level="INFO">Clicking element 'xpath=//*[@id='login']'.</msg>
+<status status="PASS" endtime="20160402 09:04:45.140" starttime="20160402 09:04:45.085"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=${YOURDETAILS}</arg>
+</arguments>
+<status status="PASS" endtime="20160402 09:04:49.806" starttime="20160402 09:04:45.140"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:49.807" starttime="20160402 09:04:40.929"></status>
+</kw>
+<kw name="Open Account Details" library="accountLoginPage">
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=${YOURDETAILS}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:49.809" level="INFO">Clicking element 'xpath=//*[@class='user-profile-links']//*[text()='Your Details']'.</msg>
+<status status="PASS" endtime="20160402 09:04:51.867" starttime="20160402 09:04:49.808"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:51.867" starttime="20160402 09:04:49.807"></status>
+</kw>
+<kw name="Verify User Address" library="accountDetailsPage">
+<arguments>
+<arg>${NEWADDRESS}</arg>
+</arguments>
+<kw name="Element Text Should Be" library="Selenium2Library">
+<doc>Verifies element identified by `locator` exactly contains text `expected`.</doc>
+<arguments>
+<arg>xpath=${ADDRESSFIELD}</arg>
+<arg>${ADDRESS}</arg>
+</arguments>
+<msg timestamp="20160402 09:04:51.869" level="INFO">Verifying element 'xpath=//*[@title='billingaddress']' contains exactly text '202 Lane'.</msg>
+<status status="PASS" endtime="20160402 09:04:51.909" starttime="20160402 09:04:51.868"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:51.910" starttime="20160402 09:04:51.868"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20160402 09:04:51.975" starttime="20160402 09:04:51.910"></status>
+</kw>
+<status status="PASS" endtime="20160402 09:04:51.975" critical="yes" starttime="20160402 09:04:26.983"></status>
+</test>
+<doc>Verify updating your account details is saved and retrieved after logging out and back in using the My Account link.</doc>
+<status status="PASS" endtime="20160402 09:04:51.977" starttime="20160402 09:04:26.973"></status>
+</suite>
+<status status="PASS" endtime="20160402 09:04:51.979" starttime="20160402 09:03:39.041"></status>
+</suite>
+<status status="PASS" endtime="20160402 09:04:51.981" starttime="20160402 09:03:38.354"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="4">Critical Tests</stat>
+<stat fail="0" pass="4">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Tests" pass="4">Tests</stat>
+<stat fail="0" id="s1-s1" name="Api" pass="1">Tests.Api</stat>
+<stat fail="0" id="s1-s1-s1" name="altFuelStations" pass="1">Tests.Api.altFuelStations</stat>
+<stat fail="0" id="s1-s2" name="Ui" pass="3">Tests.Ui</stat>
+<stat fail="0" id="s1-s2-s1" name="emptyShoppingCart" pass="1">Tests.Ui.emptyShoppingCart</stat>
+<stat fail="0" id="s1-s2-s2" name="placeOrder" pass="1">Tests.Ui.placeOrder</stat>
+<stat fail="0" id="s1-s2-s3" name="updateAccount" pass="1">Tests.Ui.updateAccount</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

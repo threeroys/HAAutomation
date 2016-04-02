@@ -27,6 +27,8 @@ To Run:  From the command line, cd into the desired folder.  The contents of and
 
 $ cd /HAAutomation/tests
 
+#### For UI tests
+
 $ robot /ui
 
 (This would run all of the tests within the ui folder)
@@ -35,9 +37,20 @@ $ cd /ui
 
 $ robot emptyShoppingCart.robot
 
-
 $ robot placeOrder.robot
 
 $ robot updateAccount.robot
 
+
+#### For API tests
+From HAAAutomation/tests
+$ robot api/
+
+(This would run all tests within the api folder
+
+$ cd /api
+
+$ robot altFuelStations.robot
+
 Test results are displayed in the console and can also be found in the directory of the executed test in the form of a log.html file that will provide detailed step by step results.
+Sample test results files (SampleLog.html, SampleReport.html and SampleOutput.xml are included)
